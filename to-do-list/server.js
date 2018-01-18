@@ -21,9 +21,11 @@ const COMPLETE_TODO = 'COMPLETE_TODO'
 const DELETE_TODO = 'DELETE_TODO'
 
 //actions
-const addNewTodo = text => ({ type: ADD_TODO, text })
-const completeTodo = id => ({ type: COMPLETE_TODO, id })
-const deleteTodo = id => ({ type: DELETE_TODO, id })
+const actions = {
+  add: (text) => ({ type: ADD_TODO, text }),
+  complete: (id) => ({ type: COMPLETE_TODO, id }),
+  delete: (id) => ({ type: DELETE_TODO, id }),
+}
 
 //reducer
 function todos(state=[], action) {
@@ -48,31 +50,22 @@ function todos(state=[], action) {
 
 let store = createStore(todos)
 store.subscribe(() => console.log('store: ', store.getState()))
-store.dispatch(addNewTodo('get milk'))
-store.dispatch(addNewTodo('go on an adventure'))
+store.dispatch(actions.add('get milk'))
+store.dispatch(actions.add('go on an adventure'))
 
 
 app.post('/sms', (req, res) => {
   const { Body } = req.body
   const twiml = new MessagingResponse()
   let parsedSMS = parseSMS(Body)
-  let { action, content } = parsedSMS
+  let { type, content } = parsedSMS
   
-  if (action === 'add') {
-    store.dispatch(addNewTodo(content))
-    console.log(formatResponse(action, content, formattedState))
-    twiml.message(formatResponse(action, content, formatTodos(store.getState())))
-  
-  } else if (action === 'list') {
+  if (type === 'list') {
     twiml.message(formatTodos(store.getState()))
   
-  } else if (action === 'complete') {
-    store.dispatch(completeTodo(content))
-    twiml.message(formatResponse(action, content, formatTodos(store.getState())))
-  
-  } else if (action === 'delete') {
-    store.dispatch(deleteTodo(content))
-    twiml.message(formatResponse(action, content, formatTodos(store.getState())))
+  } else if (type === 'complete' || type === 'add' || type === 'delete') {
+    store.dispatch(actions[type](content))
+    twiml.message(formatResponse(type, content, formatTodos(store.getState())))
   
   } else {
     twiml.message(instructions)

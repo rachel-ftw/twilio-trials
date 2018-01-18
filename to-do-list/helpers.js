@@ -14,9 +14,9 @@ function createTodo(text){
 
 function parseSMS(sms) {
   let smsArray = sms.split(' ').map(word => word.toLowerCase())
-  let action = smsArray.slice(0, 1)[0]
+  let type = smsArray.slice(0, 1)[0]
   let content = smsArray.slice(1, smsArray.length).join(' ')
-  return { action, content }
+  return { type, content }
 }
 
 const instructions = `
