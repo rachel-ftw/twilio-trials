@@ -14,4 +14,4 @@ app.post('/sms', (req, res) => {
   res.end(twiml.toString())
 })
 
-http.createServer(app).listen(3000, () => console.log('connected on port 3k 💅'))
+http.createServer(app).listen(3000, () => console.log('connected on port 3k 🔮'))

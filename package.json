@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:todo": "nodemon to-do-list/server.js",
+    "start:meow": "nodemon cat-pics-api/server.js",
     "start:magic8": "nodemon magic-8-ball/server.js"
   },
   "author": "Rachel Ralston",

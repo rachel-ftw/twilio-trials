@@ -1,4 +1,3 @@
-
 let todoId = 0
 
 function createTodo(text){
