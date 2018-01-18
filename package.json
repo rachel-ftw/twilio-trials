@@ -5,14 +5,16 @@
   "main": "index.js",
   "scripts": {
     "start:todo": "nodemon to-do-list/server.js",
-    "start:meow": "nodemon cat-pics-api/server.js",
+    "start:giphy": "nodemon giphy-api/server.js",
     "start:magic8": "nodemon magic-8-ball/server.js"
   },
   "author": "Rachel Ralston",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "dotenv": "^4.0.0",
     "express": "^4.16.2",
+    "node-fetch": "^1.7.3",
     "nodemon": "^1.14.11",
     "redux": "^3.7.2",
     "twilio": "^3.11.0"
