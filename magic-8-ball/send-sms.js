@@ -5,8 +5,8 @@ const twilioPhone = process.env.TWILIO_PHONE_MAGIC8
 const myCell = process.env.MY_CELL
 
 const client = require('twilio')(accountSID, authToken)
-const { answers } = require('./data')
-const { findRandomIndex } = require('./helpers')
+
+const { findRandomIndex, answers } = require('./helpers')
 
 client.messages
   .create({

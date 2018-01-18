@@ -1,11 +1,9 @@
 const http = require('http')
 const express = require('express')
 const { MessagingResponse } = require('twilio').twiml
+const { findRandomIndex, answers } = require('./helpers')
 
 const app = express()
-
-const { answers } = require('./data')
-const { findRandomIndex } = require('./helpers')
 
 app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse()

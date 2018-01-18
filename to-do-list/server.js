@@ -36,7 +36,7 @@ function todos(state=[], action) {
     case COMPLETE_TODO:
       return state.map(todo => {
         return todo.id === parseInt(action.id) ?
-          Object.assign({}, todo,{ complete: true }) : 
+          Object.assign({}, todo, { complete: true }) : 
           todo
       })
     
@@ -50,9 +50,8 @@ function todos(state=[], action) {
 
 let store = createStore(todos)
 store.subscribe(() => console.log('store: ', store.getState()))
-store.dispatch(actions.add('get milk'))
+store.dispatch(actions.add('do a cartwheel'))
 store.dispatch(actions.add('go on an adventure'))
-
 
 app.post('/sms', (req, res) => {
   const { Body } = req.body
@@ -76,5 +75,3 @@ app.post('/sms', (req, res) => {
 })
 
 http.createServer(app).listen(3002, () => console.log('connected on port 3k2 💅'))
-
-module.exports = { ADD_TODO }
