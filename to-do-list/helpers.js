@@ -29,10 +29,9 @@ input: [keyword] [data]
 `
 
 function formatTodos(store) {
-  let formatted = store.map(todo => 
+  return store.map(todo => 
     `id ${todo.id}: ${todo.text} -- ${todo.complete ? '👍 💃' : '💩 💀'}`
   ).join('\n')
-  return formatted
 }
 
 module.exports = {
