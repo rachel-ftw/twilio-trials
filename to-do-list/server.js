@@ -4,12 +4,12 @@ const bodyParser = require('body-parser');
 const { createStore } = require('redux')
 const { MessagingResponse } = require('twilio').twiml
 
-const { list } = require('./data')
 const {
   parseSMS,
   createTodo,
   formatTodos,
   instructions,
+  formatResponse,
 } = require('./helpers')
 
 const app = express()
@@ -39,7 +39,7 @@ function todos(state=[], action) {
       })
     
     case DELETE_TODO:
-      return state.filter(todo => todo.id !== action.id)
+      return state.filter(todo => todo.id !== parseInt(action.id))
     
     default:
       return state
@@ -51,6 +51,7 @@ store.subscribe(() => console.log('store: ', store.getState()))
 store.dispatch(addNewTodo('get milk'))
 store.dispatch(addNewTodo('go on an adventure'))
 
+
 app.post('/sms', (req, res) => {
   const { Body } = req.body
   const twiml = new MessagingResponse()
@@ -59,18 +60,19 @@ app.post('/sms', (req, res) => {
   
   if (action === 'add') {
     store.dispatch(addNewTodo(content))
-    twiml.message(`added todo: ${content}`)
+    console.log(formatResponse(action, content, formattedState))
+    twiml.message(formatResponse(action, content, formatTodos(store.getState())))
   
   } else if (action === 'list') {
     twiml.message(formatTodos(store.getState()))
   
   } else if (action === 'complete') {
     store.dispatch(completeTodo(content))
-    twiml.message(`complete todo: ${content}`)
+    twiml.message(formatResponse(action, content, formatTodos(store.getState())))
   
   } else if (action === 'delete') {
     store.dispatch(deleteTodo(content))
-    twiml.message(`deleted todo: ${content}`)
+    twiml.message(formatResponse(action, content, formatTodos(store.getState())))
   
   } else {
     twiml.message(instructions)

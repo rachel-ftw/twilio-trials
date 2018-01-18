@@ -30,8 +30,16 @@ input: [keyword] [data]
 
 function formatTodos(store) {
   return store.map(todo => 
-    `id ${todo.id}: ${todo.text} -- ${todo.complete ? '👍 💃' : '💩 💀'}`
+    `id ${todo.id}: ${todo.text} -- ${todo.complete ? '✅' : '❗️'}`
   ).join('\n')
+}
+
+function formatResponse(action, content, state) {
+  return (
+`${action === 'add' ? action + 'ed' : action + 'd'} todo: ${content}
+---
+${state}`
+  )
 }
 
 module.exports = {
@@ -39,4 +47,5 @@ module.exports = {
   parseSMS, 
   formatTodos,
   instructions,
+  formatResponse,
 }
