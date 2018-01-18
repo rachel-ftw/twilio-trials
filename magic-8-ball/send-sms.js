@@ -14,5 +14,5 @@ client.messages
     from: twilioPhone,
     body: answers[findRandomIndex((answers.length - 1))]
   })
-  .then(m => console.log(m.sid))
+  .then(msg => console.log(msg.sid))
   .catch(e => console.error(e))

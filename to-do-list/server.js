@@ -71,6 +71,7 @@ app.post('/sms', (req, res) => {
   }
   
   res.writeHead(200, {'Content-Type': 'text/xml'})
+  console.log(twiml)
   res.end(twiml.toString())
 })
 

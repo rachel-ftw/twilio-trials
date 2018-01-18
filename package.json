@@ -7,7 +7,7 @@
     "start:todo": "nodemon to-do-list/server.js",
     "start:magic8": "nodemon magic-8-ball/server.js"
   },
-  "author": "",
+  "author": "Rachel Ralston",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.2",
