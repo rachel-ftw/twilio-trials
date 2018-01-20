@@ -32,17 +32,17 @@ function todos(state=[], action) {
   switch (action.type) {
     case ADD_TODO:
       return [...state, createTodo(action.text)]
-    
+
     case COMPLETE_TODO:
       return state.map(todo => {
         return todo.id === parseInt(action.id) ?
-          Object.assign({}, todo, { complete: true }) : 
+          Object.assign({}, todo, { complete: true }) :
           todo
       })
-    
+
     case DELETE_TODO:
       return state.filter(todo => todo.id !== parseInt(action.id))
-    
+
     default:
       return state
   }
@@ -58,20 +58,19 @@ app.post('/sms', (req, res) => {
   const twiml = new MessagingResponse()
   let parsedSMS = parseSMS(Body)
   let { type, content } = parsedSMS
-  
+
   if (type === 'list') {
     twiml.message(formatTodos(store.getState()))
-  
+
   } else if (type === 'complete' || type === 'add' || type === 'delete') {
     store.dispatch(actions[type](content))
     twiml.message(formatResponse(type, content, formatTodos(store.getState())))
-  
+
   } else {
     twiml.message(instructions)
   }
-  
+
   res.writeHead(200, {'Content-Type': 'text/xml'})
-  console.log(twiml)
   res.end(twiml.toString())
 })
 

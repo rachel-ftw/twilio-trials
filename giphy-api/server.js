@@ -14,7 +14,7 @@ app.post('/sms', (req, res) => {
   const { Body } = req.body
   const twiml = new MessagingResponse()
   const url = `http://api.giphy.com/v1/gifs/translate?api_key=${giphyAPIKey}&s=${Body}`
-  
+
   fetch(url)
     .then(response => response.json())
     .then(payload => {
@@ -25,4 +25,6 @@ app.post('/sms', (req, res) => {
     .catch(e => console.error(e))
 })
 
-http.createServer(app).listen(3000, () => console.log('connected on port 3k 😺'))
+http.createServer(app).listen(3000, () =>
+  console.log('connected on port 3k 😺')
+)
