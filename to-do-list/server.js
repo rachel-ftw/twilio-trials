@@ -15,19 +15,16 @@ const {
 const app = express()
 app.use(bodyParser.urlencoded({extended: false}));
 
-//constants
 const ADD_TODO = 'ADD_TODO'
 const COMPLETE_TODO = 'COMPLETE_TODO'
 const DELETE_TODO = 'DELETE_TODO'
 
-//actions
 const actions = {
   add: (text) => ({ type: ADD_TODO, text }),
   complete: (id) => ({ type: COMPLETE_TODO, id }),
   delete: (id) => ({ type: DELETE_TODO, id }),
 }
 
-//reducer
 function todos(state=[], action) {
   switch (action.type) {
     case ADD_TODO:
@@ -49,7 +46,7 @@ function todos(state=[], action) {
 }
 
 let store = createStore(todos)
-store.subscribe(() => console.log('store: ', store.getState()))
+
 store.dispatch(actions.add('do a cartwheel'))
 store.dispatch(actions.add('go on an adventure'))
 
